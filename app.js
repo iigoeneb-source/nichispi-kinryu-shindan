@@ -538,7 +538,7 @@
   function setupLineCTA(result) {
     var lineBtn = document.getElementById('line-cta-button');
     if (lineBtn) {
-      lineBtn.href = '#line-placeholder';
+      lineBtn.href = 'https://lin.ee/W9fCSMg';
     }
 
     var keywordEl = document.getElementById('line-keyword');

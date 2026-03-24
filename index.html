@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>金流診断 | あなたのお金の流れタイプは？</title>
+
+  <!-- OGP -->
+  <meta property="og:title" content="金流診断 | あなたのお金の流れタイプは？">
+  <meta property="og:description" content="10の質問であなたの金流タイプを診断。お金のエネルギーの流れを見える化します。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="ogp.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 画面1: スタート画面 -->
+  <div id="screen-start" class="screen active">
+    <div class="container">
+      <div class="start-decoration"></div>
+      <h1 class="main-title">金流診断</h1>
+      <p class="subtitle">〜あなたのお金の流れタイプを診断〜</p>
+      <div class="start-description">
+        <p>10の質問に答えるだけで、あなたのお金のエネルギーの流れ方がわかります。</p>
+        <p>お金の「停滞」「漏出」「遮断」…<br>あなたの金流タイプを知ることが、<br>豊かさへの第一歩です。</p>
+      </div>
+      <button id="start-btn" class="primary-btn">診断を始める</button>
+      <p class="time-note">所要時間：約2分</p>
+    </div>
+    <footer class="disclaimer">
+      ※本診断は税務・投資・法的助言ではありません。スピリチュアルの枠組みを用いた行動設計・習慣改善のアドバイスです。
+    </footer>
+  </div>
+
+  <!-- 画面2: 質問画面 -->
+  <div id="screen-question" class="screen">
+    <div class="container">
+      <div id="progress-bar" class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <p id="question-number" class="question-number">Q1 / 10</p>
+      <h2 id="question-text" class="question-text">設問テキスト</h2>
+      <div id="choices" class="choices">
+        <!-- JSで動的生成: 4つのbuttonを配置 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 画面3: 結果画面 -->
+  <div id="screen-result" class="screen">
+    <div class="container">
+      <div id="result-card" class="result-card">
+        <p class="result-label">あなたの金流タイプは…</p>
+        <div id="result-icon" class="result-icon">✨</div>
+        <h2 id="result-type-name" class="result-type-name">金流覚醒タイプ</h2>
+        <p id="result-catchphrase" class="result-catchphrase">キャッチコピー</p>
+        <p id="result-description" class="result-description">説明文</p>
+        <div id="result-secondary" class="result-secondary" style="display:none;">
+          <p id="result-secondary-text"></p>
+        </div>
+      </div>
+
+      <div class="radar-section">
+        <h3 class="section-title">あなたの5軸スコア</h3>
+        <canvas id="radar" width="300" height="300"></canvas>
+      </div>
+
+      <div id="improvement-section" class="improvement-section">
+        <h3 class="section-title">改善のヒント</h3>
+        <p id="improvement-hint" class="improvement-hint"></p>
+      </div>
+
+      <div class="line-cta-section">
+        <h3 class="cta-title">あなたのタイプに合った<br>改善アクション3つを<br>LINEでお届けします</h3>
+        <a id="line-cta-button" href="#line-placeholder" target="_blank" class="line-btn">
+          <span class="line-icon">💬</span>
+          LINE友だち追加
+        </a>
+        <p class="line-instruction">友だち追加後、下のキーワードを送信してください</p>
+        <p id="line-keyword" class="line-keyword">【覚醒】</p>
+        <p id="line-secondary-note" class="line-secondary-note" style="display:none;"></p>
+      </div>
+
+      <div class="share-section">
+        <h3 class="section-title">結果をシェア</h3>
+        <div class="share-buttons">
+          <button class="share-btn twitter">𝕏 でシェア</button>
+          <button class="share-btn line-share">LINEでシェア</button>
+          <button class="share-btn copy">URLをコピー</button>
+        </div>
+      </div>
+
+      <button id="retry-btn" class="secondary-btn">もう一度診断する</button>
+
+      <footer class="disclaimer">
+        ※本診断は税務・投資・法的助言ではありません。スピリチュアルの枠組みを用いた行動設計・習慣改善のアドバイスです。
+      </footer>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

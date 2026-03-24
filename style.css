@@ -1,0 +1,660 @@
+/* ============================================
+   金流診断アプリ - style.css
+   テーマ: 神秘的 × 知的（紫・ゴールド系）
+   ============================================ */
+
+/* --- CSS Variables --- */
+:root {
+  --bg-dark: #1a0a2e;
+  --bg-gradient: #2d1b69;
+  --accent-gold: #d4a843;
+  --accent-gold-light: #f0d078;
+  --text-primary: #f0e6ff;
+  --text-secondary: #c4b5d9;
+  --card-bg: rgba(45, 27, 105, 0.6);
+  --card-border: rgba(212, 168, 67, 0.3);
+  --type-stagnation: #4a0e4e;
+  --type-leakage: #1a3a5c;
+  --type-blockage: #5c1a1a;
+  --type-awakening: #d4a843;
+  --type-mixed: #8a8a8a;
+}
+
+/* --- Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Selection highlight --- */
+::selection {
+  background: rgba(106, 55, 160, 0.6);
+  color: #f0e6ff;
+}
+
+::-moz-selection {
+  background: rgba(106, 55, 160, 0.6);
+  color: #f0e6ff;
+}
+
+/* --- Scrollbar (WebKit) --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 67, 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 168, 67, 0.6);
+}
+
+/* --- Body & Background --- */
+body {
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-gradient));
+  min-height: 100vh;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- Star Particle Layer 1 (small, slow) --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 25% 35%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 40% 10%, rgba(240, 208, 120, 0.7), transparent),
+    radial-gradient(1px 1px at 55% 45%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 85% 55%, rgba(240, 208, 120, 0.6), transparent),
+    radial-gradient(1px 1px at 15% 65%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 35% 80%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 60% 70%, rgba(240, 208, 120, 0.5), transparent),
+    radial-gradient(1px 1px at 80% 85%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 95% 40%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 5% 90%, rgba(255, 255, 255, 0.6), transparent);
+  opacity: 0.5;
+  animation: starDrift1 120s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Star Particle Layer 2 (slightly larger, faster) --- */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 25%, rgba(212, 168, 67, 0.6), transparent),
+    radial-gradient(2px 2px at 45% 15%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 65% 50%, rgba(240, 208, 120, 0.5), transparent),
+    radial-gradient(2px 2px at 30% 70%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 75% 35%, rgba(212, 168, 67, 0.5), transparent),
+    radial-gradient(2px 2px at 90% 65%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 10% 50%, rgba(240, 208, 120, 0.4), transparent),
+    radial-gradient(2px 2px at 50% 90%, rgba(255, 255, 255, 0.5), transparent);
+  opacity: 0.4;
+  animation: starDrift2 60s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes starDrift1 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50%, -50%); }
+}
+
+@keyframes starDrift2 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-30%, -40%); }
+}
+
+/* --- Container --- */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Screen Switching --- */
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* ============================================
+   Start Screen
+   ============================================ */
+.main-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 2.5rem;
+  color: var(--accent-gold);
+  text-shadow:
+    0 0 20px rgba(212, 168, 67, 0.4),
+    0 0 40px rgba(212, 168, 67, 0.2);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.start-description {
+  text-align: center;
+  line-height: 1.8;
+  margin: 30px 0;
+  color: var(--text-secondary);
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+  color: #1a0a2e;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 48px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(212, 168, 67, 0.4);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: block;
+  margin: 0 auto;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(212, 168, 67, 0.6);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.time-note {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Start decoration (golden sparkles via pseudo-elements) */
+.start-decoration {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.start-decoration::before,
+.start-decoration::after {
+  content: '\2726';
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  opacity: 0.6;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.start-decoration::before {
+  left: 10%;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.start-decoration::after {
+  right: 10%;
+  animation: sparkle 2s ease-in-out 1s infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
+  50% { opacity: 0.8; transform: translateY(-50%) scale(1.2); }
+}
+
+/* ============================================
+   Question Screen
+   ============================================ */
+.progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+  height: 100%;
+  transition: width 0.4s ease;
+  border-radius: 10px;
+}
+
+.question-number {
+  color: var(--accent-gold);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.question-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.25rem;
+  text-align: center;
+  margin: 20px 0 30px;
+  line-height: 1.6;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.choice-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.choice-btn:hover {
+  border-color: var(--accent-gold);
+  background: rgba(212, 168, 67, 0.1);
+  transform: translateX(4px);
+}
+
+.choice-btn:active,
+.choice-btn.selected {
+  background: rgba(212, 168, 67, 0.2);
+  border-color: var(--accent-gold);
+}
+
+/* ============================================
+   Result Screen
+   ============================================ */
+.result-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fadeIn 0.8s ease;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.result-icon {
+  font-size: 3rem;
+  margin: 10px 0;
+  animation: iconReveal 0.6s ease 0.3s both;
+}
+
+@keyframes iconReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.result-type-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.result-catchphrase {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-style: italic;
+  margin: 8px 0;
+}
+
+.result-description {
+  line-height: 1.8;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.result-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+  text-align: left;
+  border-left: 3px solid var(--accent-gold);
+}
+
+/* --- Type-specific Colors --- */
+.type-stagnation {
+  border-color: var(--type-stagnation);
+}
+
+.type-stagnation .result-type-name {
+  color: #9b59b6;
+}
+
+.type-leakage {
+  border-color: var(--type-leakage);
+}
+
+.type-leakage .result-type-name {
+  color: #5dade2;
+}
+
+.type-blockage {
+  border-color: var(--type-blockage);
+}
+
+.type-blockage .result-type-name {
+  color: #e74c3c;
+}
+
+.type-awakening {
+  border-color: var(--type-awakening);
+}
+
+.type-awakening .result-type-name {
+  color: var(--accent-gold);
+}
+
+.type-mixed {
+  border-color: var(--type-mixed);
+}
+
+.type-mixed .result-type-name {
+  color: #bdc3c7;
+}
+
+/* ============================================
+   Radar Chart Section
+   ============================================ */
+.radar-section {
+  text-align: center;
+  margin: 30px 0;
+}
+
+canvas#radar {
+  max-width: 100%;
+}
+
+/* ============================================
+   Improvement Hints
+   ============================================ */
+.improvement-section {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid var(--card-border);
+}
+
+.improvement-hint {
+  line-height: 1.8;
+}
+
+/* ============================================
+   Section Title
+   ============================================ */
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  color: var(--accent-gold);
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ============================================
+   LINE CTA
+   ============================================ */
+.line-cta-section {
+  background: linear-gradient(135deg, rgba(0, 180, 0, 0.1), rgba(0, 180, 0, 0.05));
+  border-radius: 20px;
+  padding: 30px;
+  margin: 30px 0;
+  text-align: center;
+  border: 1px solid rgba(0, 180, 0, 0.2);
+}
+
+.cta-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.line-btn {
+  display: inline-block;
+  background: #06C755;
+  color: white;
+  border-radius: 50px;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin: 20px 0 15px;
+  box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.line-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(6, 199, 85, 0.5);
+}
+
+.line-icon {
+  margin-right: 8px;
+}
+
+.line-instruction {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.line-keyword {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+
+.line-secondary-note {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+/* ============================================
+   Share Buttons
+   ============================================ */
+.share-section {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  border: 1px solid var(--card-border);
+  border-radius: 25px;
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.share-btn:hover {
+  border-color: var(--accent-gold);
+  background: rgba(212, 168, 67, 0.1);
+}
+
+.share-btn.twitter:hover {
+  border-color: #1DA1F2;
+}
+
+.share-btn.line-share:hover {
+  border-color: #06C755;
+}
+
+/* ============================================
+   Retry Button
+   ============================================ */
+.secondary-btn {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  border-radius: 50px;
+  padding: 12px 36px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: block;
+  margin: 20px auto;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.secondary-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* ============================================
+   Disclaimer
+   ============================================ */
+.disclaimer {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 20px;
+  margin-top: 30px;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.slide-in {
+  animation: slideIn 0.4s ease forwards;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (min-width: 600px) {
+  .container {
+    max-width: 560px;
+    padding: 30px;
+  }
+
+  .main-title {
+    font-size: 2.8rem;
+  }
+
+  .question-text {
+    font-size: 1.35rem;
+  }
+
+  .result-type-name {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 600px;
+  }
+
+  .primary-btn {
+    font-size: 1.15rem;
+    padding: 18px 56px;
+  }
+
+  .choice-btn {
+    font-size: 1.05rem;
+    padding: 18px 24px;
+  }
+
+  .line-btn {
+    font-size: 1.15rem;
+    padding: 18px 48px;
+  }
+}
